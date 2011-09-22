@@ -61,7 +61,7 @@ StatusIconDispatcher.prototype = {
 Signals.addSignalMethods(StatusIconDispatcher.prototype);
 
 
-function main(extensionMeta) {
+function main(meta) {
 	
 
     Main.statusIconDispatcher = new StatusIconDispatcher();
@@ -74,4 +74,14 @@ function main(extensionMeta) {
     Main.panel._trayBox.show();
     Main.messageTray._summary.destroy_children()
 
-};
+}
+
+function init(meta) {
+	main(meta);
+}
+
+function enable() {
+}
+
+function disable() {
+}
