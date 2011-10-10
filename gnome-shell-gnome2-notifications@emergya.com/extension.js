@@ -67,7 +67,7 @@ function main(meta) {
     Main.statusIconDispatcher = new StatusIconDispatcher();
     Main.statusIconDispatcher.start(Main.messageTray.actor);
 	
-    for ( i = 0; i < Main.messageTray._summaryItems.length; i++ ) {
+    for ( let i = 0; i < Main.messageTray._summaryItems.length; i++ ) {
         icon = Main.messageTray._summaryItems[i].source._trayIcon;
         icon.reparent(Main.panel._trayBox);
     }
