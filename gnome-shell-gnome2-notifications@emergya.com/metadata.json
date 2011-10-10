@@ -1,5 +1,5 @@
 {
-	"shell-version": ["3.0", "3.1.90"],
+	"shell-version": ["3.0", "3.1.90", "3.2.0"],
 	"uuid": "gnome-shell-gnome2-notifications@emergya.com",
 	"name": "gnome-shell-gnome2-notifications",
 	"description": "GNOME2 style notifications (at systray)",
