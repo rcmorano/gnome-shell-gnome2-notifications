@@ -76,11 +76,11 @@ function main(meta) {
 
 }
 
-function init(meta) {
-	main(meta);
+function init() {
 }
 
-function enable() {
+function enable(meta) {
+main(meta);
 }
 
 function disable() {
