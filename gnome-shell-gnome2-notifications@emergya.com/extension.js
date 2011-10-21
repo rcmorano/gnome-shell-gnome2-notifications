@@ -27,6 +27,8 @@ const StatusIconDispatcherOrig = imports.ui.statusIconDispatcher;
 const Main = imports.ui.main;
 const Panel = imports.ui.panel;
 const Signals = imports.signals;
+const Config = imports.misc.config;
+const versionCheck = imports.ui.extensionSystem.versionCheck;
 //const NotificationDaemon = imports.ui.notificationDaemon;
 //const Util = imports.misc.util;
 //const Lang = imports.lang;
@@ -65,14 +67,17 @@ function main(meta) {
 	
 
     Main.statusIconDispatcher = new StatusIconDispatcher();
-    Main.statusIconDispatcher.start(Main.messageTray.actor);
 	
-    for ( let i = 0; i < Main.messageTray._summaryItems.length; i++ ) {
-        icon = Main.messageTray._summaryItems[i].source._trayIcon;
-        icon.reparent(Main.panel._trayBox);
+    if ( versionCheck(['3.0','3.1'], Config.PACKAGE_VERSION) ) {
+        Main.statusIconDispatcher.start(Main.messageTray.actor);
+        for ( let i = 0; i < Main.messageTray._summaryItems.length; i++ ) {
+            icon = Main.messageTray._summaryItems[i].source._trayIcon;
+            icon.reparent(Main.panel._trayBox);
+        }
+
+        Main.panel._trayBox.show();
+        Main.messageTray._summary.destroy_children()
     }
-    Main.panel._trayBox.show();
-    Main.messageTray._summary.destroy_children()
 
 }
 
