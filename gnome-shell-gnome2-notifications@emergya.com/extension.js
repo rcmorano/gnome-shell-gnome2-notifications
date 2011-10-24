@@ -29,12 +29,11 @@ const Panel = imports.ui.panel;
 const Signals = imports.signals;
 const Config = imports.misc.config;
 const versionCheck = imports.ui.extensionSystem.versionCheck;
-//const NotificationDaemon = imports.ui.notificationDaemon;
-//const Util = imports.misc.util;
-//const Lang = imports.lang;
-//const Shell = imports.gi.Shell;
+const PanelMenu = imports.ui.panelMenu;
+const Shell = imports.gi.Shell;
 
 const STANDARD_TRAY_ICON_IMPLEMENTATIONS = imports.ui.statusIconDispatcher.STANDARD_TRAY_ICON_IMPLEMENTATIONS;
+const PANEL_ICON_SIZE = imports.ui.panel.PANEL_ICON_SIZE
 
 function StatusIconDispatcher() {
     this._init();
@@ -68,25 +67,63 @@ function main(meta) {
 
     Main.statusIconDispatcher = new StatusIconDispatcher();
 	
-    if ( versionCheck(['3.0','3.1'], Config.PACKAGE_VERSION) ) {
-        Main.statusIconDispatcher.start(Main.messageTray.actor);
-        for ( let i = 0; i < Main.messageTray._summaryItems.length; i++ ) {
-            icon = Main.messageTray._summaryItems[i].source._trayIcon;
+    Main.statusIconDispatcher.start(Main.messageTray.actor);
+    for ( let i = 0; i < Main.messageTray._summaryItems.length; i++ ) {
+        icon = Main.messageTray._summaryItems[i].source._trayIcon;
+        if ( versionCheck(['3.0','3.1'], Config.PACKAGE_VERSION) ) {
+            icon.height = PANEL_ICON_SIZE;
             icon.reparent(Main.panel._trayBox);
+        } else {
+            // adjust icon height to new panel's one
+            icon.height = PANEL_ICON_SIZE;
+
+            // move icon to (the old named) traybox
+            icon.reparent(Main.panel._rightBox);
+            Main.panel._rightBox.move_child(icon, 0)
+
+            // add a container for the icon in order to get it "padded"
+            let buttonBox = new PanelMenu.ButtonBox();
+            let box = buttonBox.actor;
+
+            // position the container aswell
+            let position = 0;
+            let children = Main.panel._rightBox.get_children();
+            let i;
+            for (i = children.length - 1; i >= 0; i--) {
+                let rolePosition = children[i]._rolePosition;
+                if (position > rolePosition) {
+                    Main.panel._rightBox.insert_actor(box, i + 1);
+                    break;
+                }
+            }
+            if (i == -1) {
+                // If we didn't find a position, we must be first
+                Main.panel._rightBox.insert_actor(box, 0);
+            }
+            box._rolePosition = position;
+            box.add_actor(icon);
+            icon.reparent(box);
+
+        }
         }
 
+    if ( versionCheck(['3.0','3.1'], Config.PACKAGE_VERSION) ) {
         Main.panel._trayBox.show();
-        Main.messageTray._summary.destroy_children()
+    } else {
+        Main.panel._rightBox.show();
     }
+    Main.messageTray._summary.destroy_children()
 
 }
 
-function init(meta) {
-	main(meta);
+function init() {
 }
 
-function enable() {
+function enable(meta) {
+    main(meta);
 }
 
 function disable() {
+    Main.statusIconDispatcher = StatusIconDispatcherOrig;
+    Main.statusIconDispatcher.start(Main.messageTray.actor);
 }
