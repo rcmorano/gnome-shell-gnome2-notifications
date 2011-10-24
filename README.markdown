@@ -15,3 +15,9 @@ By the moment, the only way to install this extension is manually copying it to 
 * /usr/share/gnome-shell/extensions (it will be loaded by every user session)
 
 I pretend to package it for Debian/Ubuntu, although, it will use the second location so it will be loaded in every user session, so maybe you'll prefer to install it manually for your user by copying it to the first location.
+
+## Enabling/Disabling the extension (via gnome-tweak-tool)
+
+Currently, disabling the extension is not working. Once you have marked it as disabled, you'll have to reload gnome-shell (alt+f2 -> type 'r' -> press 'enter').
+
+Enabling it works as supposed (every icon from message tray will be moved to "traybox").
