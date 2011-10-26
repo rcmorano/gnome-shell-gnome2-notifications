@@ -1,6 +1,6 @@
-# GNOME Shell "gnome2 notifications"
+# GNOME Shell "classic systray"
 
-**gnome-shell-gnome2-notifications** is YAGSE (Yet Another GNOME Shell extension) that tries to provide an "old-skool" gnome2 way of showing application's tray icons.
+**gnome-shell-classic-systray** is YAGSE (Yet Another GNOME Shell extension) that tries to provide an "old-skool" gnome2 way of showing application's tray icons.
 
 Most of the application's tray icons (in fact, all of them but some applets) are now located in GNOME Shell's notifications area, instead of being located at the old traybar.
 This could be annoying since this area is hidden by default and you won't be able to easily see if any icon is trying to communicate something. You'll have to make the notifications area appear.

@@ -1,0 +1,7 @@
+{
+	"shell-version": ["3.0", "3.1.90", "3.1.91", "3.2"],
+	"uuid": "gnome-shell-classic-systray@emergya.com",
+	"name": "gnome-shell-classic-systray",
+	"description": "GNOME2 style systray",
+	"url": "http://www.emergya.es"
+}

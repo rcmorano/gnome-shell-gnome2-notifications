@@ -1,7 +1,0 @@
-{
-	"shell-version": ["3.0", "3.1", "3.2"],
-	"uuid": "gnome-shell-gnome2-notifications@emergya.com",
-	"name": "gnome-shell-gnome2-notifications",
-	"description": "GNOME2 style notifications (at systray)",
-	"url": "http://www.emergya.es"
-}
