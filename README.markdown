@@ -9,12 +9,19 @@ Pidgin is the best example for me. It was the main reason for me to develop this
 
 ## Installation
 
-By the moment, the only way to install this extension is manually copying it to one of these locations:
+The easiest way to maintain it updated is to clone the extension directly to one of the locations explained below and to 'git pull' periodically:
+
+* git clone git@github.com:rcmorano/gnome-shell-gnome2-notifications.git $LOCATION
+
+There are two possible locations to place the extension:
 
 * ~/.local/share/gnome-shell/extensions (it will be loaded only by your user session)
 * /usr/share/gnome-shell/extensions (it will be loaded by every user session)
 
-I pretend to package it for Debian/Ubuntu, although, it will use the second location so it will be loaded in every user session, so maybe you'll prefer to install it manually for your user by copying it to the first location.
+You can also use the packaged version for Debian/Ubuntu. It is available for download from this PPA [1]. At this moment, any version will is compatible with any Debian/Ubuntu version that uses gnome-shell.
+Note that the packaged version will use the second location so it will be loaded in every user session.
+
+[1] https://launchpad.net/~emergya/+archive/ppa
 
 ## Enabling/Disabling the extension (via gnome-tweak-tool)
 
