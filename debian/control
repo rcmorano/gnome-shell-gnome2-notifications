@@ -2,7 +2,6 @@ Source: gnome-shell-classic-systray
 Section: utils
 Priority: optional
 Maintainer: Roberto C. Morano <rcmorano@emergya.com>
-Uploaders: Roberto C. Morano <rcmorano@emergya.com>
 Build-Depends: cdbs (>= 0.4.90), debhelper (>= 7)
 Standards-Version: 3.9.2
 Homepage: https://launchpad.net/gnome-shell-classic-systray
