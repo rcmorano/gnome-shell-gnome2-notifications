@@ -50,8 +50,18 @@ StatusIconDispatcher.prototype = {
         if (role) {
 	    Main.panel._onTrayIconAdded(o, icon, role);
         } else {
-            role = wmClass;
-	    Main.panel._onTrayIconAdded(o, icon, role);
+            if ( wmClass == "classicmenu-indicator" ) {
+                global.log(wmClass);
+//                Main.panel._leftBox.remove_actor(Main.panel._activitiesButton.actor);
+                icon.height = PANEL_ICON_SIZE;
+                let buttonBox = new PanelMenu.ButtonBox();
+                let box = buttonBox.actor;
+                box.add_actor(icon);
+                Main.panel._leftBox.insert_actor(box, 0);
+            } else {
+                role = wmClass;
+       	        Main.panel._onTrayIconAdded(o, icon, role);
+            }
 	}
     },
 
