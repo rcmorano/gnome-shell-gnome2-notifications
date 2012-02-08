@@ -69,7 +69,7 @@ function main(meta) {
 	
     Main.statusIconDispatcher.start(Main.messageTray.actor);
     for ( let i = 0; i < Main.messageTray._summaryItems.length; i++ ) {
-        icon = Main.messageTray._summaryItems[i].source._trayIcon;
+        let icon = Main.messageTray._summaryItems[i].source._trayIcon;
         if ( versionCheck(['3.0','3.1'], Config.PACKAGE_VERSION) ) {
             icon.height = PANEL_ICON_SIZE;
             icon.reparent(Main.panel._trayBox);
@@ -124,6 +124,6 @@ function enable(meta) {
 }
 
 function disable() {
-    Main.statusIconDispatcher = StatusIconDispatcherOrig;
+    Main.statusIconDispatcher = new StatusIconDispatcherOrig();
     Main.statusIconDispatcher.start(Main.messageTray.actor);
 }
