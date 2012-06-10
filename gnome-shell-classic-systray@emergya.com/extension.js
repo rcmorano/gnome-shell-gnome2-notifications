@@ -28,7 +28,6 @@ const Main = imports.ui.main;
 const Panel = imports.ui.panel;
 const Signals = imports.signals;
 const Config = imports.misc.config;
-const versionCheck = imports.ui.extensionSystem.versionCheck;
 const PanelMenu = imports.ui.panelMenu;
 const Shell = imports.gi.Shell;
 
@@ -70,49 +69,40 @@ function main(meta) {
     Main.statusIconDispatcher.start(Main.messageTray.actor);
     for ( let i = 0; i < Main.messageTray._summaryItems.length; i++ ) {
         let icon = Main.messageTray._summaryItems[i].source._trayIcon;
-        if ( versionCheck(['3.0','3.1'], Config.PACKAGE_VERSION) ) {
-            icon.height = PANEL_ICON_SIZE;
-            icon.reparent(Main.panel._trayBox);
-        } else {
-            // adjust icon height to new panel's one
-            icon.height = PANEL_ICON_SIZE;
+        // adjust icon height to new panel's one
+        icon.height = PANEL_ICON_SIZE;
 
-            // move icon to (the old named) traybox
-            icon.reparent(Main.panel._rightBox);
-            Main.panel._rightBox.move_child(icon, 0)
+        // move icon to (the old named) traybox
+        icon.reparent(Main.panel._rightBox);
+        Main.panel._rightBox.move_child(icon, 0)
 
-            // add a container for the icon in order to get it "padded"
-            let buttonBox = new PanelMenu.ButtonBox();
-            let box = buttonBox.actor;
+        // add a container for the icon in order to get it "padded"
+        let buttonBox = new PanelMenu.ButtonBox();
+        let box = buttonBox.actor;
 
-            // position the container aswell
-            let position = 0;
-            let children = Main.panel._rightBox.get_children();
-            let i;
-            for (i = children.length - 1; i >= 0; i--) {
-                let rolePosition = children[i]._rolePosition;
-                if (position > rolePosition) {
-                    Main.panel._rightBox.insert_actor(box, i + 1);
-                    break;
-                }
+        // position the container aswell
+        let position = 0;
+        let children = Main.panel._rightBox.get_children();
+        let i;
+        for (i = children.length - 1; i >= 0; i--) {
+            let rolePosition = children[i]._rolePosition;
+            if (position > rolePosition) {
+                Main.panel._rightBox.insert_actor(box, i + 1);
+                break;
             }
-            if (i == -1) {
-                // If we didn't find a position, we must be first
-                Main.panel._rightBox.insert_actor(box, 0);
-            }
-            box._rolePosition = position;
-            box.add_actor(icon);
-            icon.reparent(box);
+        }
+        if (i == -1) {
+            // If we didn't find a position, we must be first
+            Main.panel._rightBox.insert_actor(box, 0);
+        }
+        box._rolePosition = position;
+        box.add_actor(icon);
+        icon.reparent(box);
 
         }
-        }
 
-    if ( versionCheck(['3.0','3.1'], Config.PACKAGE_VERSION) ) {
-        Main.panel._trayBox.show();
-    } else {
-        Main.panel._rightBox.show();
-    }
-    Main.messageTray._summary.destroy_children()
+    Main.panel._rightBox.show();
+    Main.messageTray._summary.destroy_all_children()
 
 }
 
